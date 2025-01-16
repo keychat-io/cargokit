@@ -2,6 +2,11 @@
 
 set -e
 
+if [[ -z "${PROTOC}" ]]; then
+  export PROTOC=/opt/homebrew/bin/protoc
+  echo "PROTOC environment variable not set. Defaulting to /opt/homebrew/bin/protoc"
+fi
+
 BASEDIR=$(dirname "$0")
 
 mkdir -p "$CARGOKIT_TOOL_TEMP_DIR"
