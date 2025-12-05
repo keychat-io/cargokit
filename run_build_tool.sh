@@ -3,8 +3,13 @@
 set -e
 
 if [[ -z "${PROTOC}" ]]; then
-  export PROTOC=/opt/homebrew/bin/protoc
-  echo "PROTOC environment variable not set. Defaulting to /opt/homebrew/bin/protoc"
+  if command -v protoc &> /dev/null; then
+    export PROTOC=$(command -v protoc)
+    echo "PROTOC environment variable not set. Using system protoc: $PROTOC"
+  else
+    export PROTOC=/opt/homebrew/bin/protoc
+    echo "PROTOC environment variable not set. Defaulting to /opt/homebrew/bin/protoc"
+  fi
 fi
 
 BASEDIR=$(dirname "$0")
