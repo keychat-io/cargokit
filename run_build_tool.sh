@@ -1,23 +1,10 @@
 #!/usr/bin/env bash
-
 set -e
-
-if [[ -z "${PROTOC}" ]]; then
-  if command -v protoc &> /dev/null; then
-    export PROTOC=$(command -v protoc)
-    echo "PROTOC environment variable not set. Using system protoc: $PROTOC"
-  else
-    export PROTOC=/opt/homebrew/bin/protoc
-    echo "PROTOC environment variable not set. Defaulting to /opt/homebrew/bin/protoc"
-  fi
-fi
-
+export PROTOC="${PROTOC:-$(command -v protoc || echo /opt/homebrew/bin/protoc)}"
 BASEDIR=$(dirname "$0")
-
 mkdir -p "$CARGOKIT_TOOL_TEMP_DIR"
 
 cd "$CARGOKIT_TOOL_TEMP_DIR"
-
 # Write a very simple bin package in temp folder that depends on build_tool package
 # from Cargokit. This is done to ensure that we don't pollute Cargokit folder
 # with .dart_tool contents.
