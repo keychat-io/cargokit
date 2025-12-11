@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-
+export PROTOC="${PROTOC:-$(command -v protoc 2>/dev/null || echo /opt/homebrew/bin/protoc)}"
 BASEDIR=$(dirname "$0")
 mkdir -p "$CARGOKIT_TOOL_TEMP_DIR"
 
